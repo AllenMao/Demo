@@ -1,0 +1,21 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Script\Level1\TraceLine.cs">
+    <Files>
+      <File FileName="Assets\Script\Level1\TraceLine.cs" Line="21" Column="71" />
+      <File FileName="Assets\Script\PlayGUI.cs" Line="27" Column="23" />
+      <File FileName="Assets\Script\Level1\SlingShot.cs" Line="90" Column="29" />
+      <File FileName="Assets\Script\Level1\BirdMoving.cs" Line="73" Column="36" />
+      <File FileName="Assets\Script\Level1\aniSprite.cs" Line="42" Column="37" />
+      <File FileName="Assets\Script\Level1\DigtalDisplay.cs" Line="14" Column="3" />
+      <File FileName="Assets\Script\Level1\ScoreController.cs" Line="37" Column="7" />
+      <File FileName="Assets\Script\Level1\PigController.cs" Line="7" Column="2" />
+      <File FileName="Assets\Script\Level1\WoodController.cs" Line="34" Column="1" />
+      <File FileName="Assets\Script\Splash.cs" Line="13" Column="3" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
