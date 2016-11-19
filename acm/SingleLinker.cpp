@@ -43,7 +43,7 @@ node* createNode()
 
 int getLength(node *head)
 {
-	if(head == NULL) {puts("null point");return 0;}
+	if(head == NULL || head->next == NULL) {puts("null point or no data");return 0;}
 
 	int n = 0;
 	node *p;
@@ -59,7 +59,7 @@ int getLength(node *head)
 
 void print(node *head)
 {
-	if(head == NULL) {puts("null point");return;}
+	if(head == NULL || head->next == NULL) {puts("null point or no data");return;}
 
 	node *p;
 	int n;
@@ -78,13 +78,13 @@ void print(node *head)
 
 node *remove(node *head ,int num)
 {
-	if(head == NULL) {puts("null point");return NULL;}
+	if(head == NULL || head->next == NULL) {puts("null point or no data");return NULL;}//no data
 
     node *p1,*p2;
 	p2 = head;
 	p1= p2->next;
 
-    while(num != p1->id && p1->next!=NULL)//search id=num node
+    while(p1->next!=NULL && num != p1->id)//search id=num node
     {
         p2 = p1;
         p1=p1->next;
@@ -103,7 +103,7 @@ node *remove(node *head ,int num)
 
 node *insert(node *head, int num)
 {
-	if(head == NULL) {puts("null point");return NULL;}
+	if(head == NULL || head->next == NULL) {puts("null point or no data");return NULL;}
 
     node *p0, *p1, *p2;
 	p2 = head;
@@ -131,16 +131,113 @@ node *insert(node *head, int num)
 	return head;
 }
 
+//bubbling sort
+node *sort(node *head)
+{
+	if(head == NULL || head->next == NULL) {puts("null point or no data");return NULL;}
+
+	node *p, *p2, *p3;
+	int n, temp;
+	n = getLength(head);
+
+	for(int i = 0; i < n-1; i++)
+	{
+		p = head->next;
+		for(int j = 0; j < n-1-i; j++)
+		{
+			if(p->id > p->next->id)
+			{
+				temp = p->id;
+				p->id = p->next->id;
+				p->next->id = temp;
+			}
+			p = p->next;
+		}
+	}
+
+	return head;
+}
+
+node *reverse(node *head)
+{
+	if(head == NULL || head->next == NULL) {puts("null point or no data");return head;}
+
+	node *p1, *p2, *p3;
+	p1 = head->next;
+	p2 = p1->next;
+
+	while(p2)
+	{
+		p3 = p2->next;
+		p2->next = p1;
+		p1 = p2;
+		p2 = p3;
+	}
+	head->next = NULL;
+	head = p1;
+
+	return head;
+}
+
+//perfect way
+void searchmid(node *head, node *mid)
+{
+	if(head == NULL || head->next == NULL) {puts("null point or no data");return;}
+
+    node *p, *q;
+	p=head->next;
+    q = p;
+	while(p->next->next != NULL)
+    {
+        p = p->next->next;
+        q = q->next;
+        mid = q;
+    }
+}
+
+node *searchLastElement(node *head, int m)
+{
+	if(head == NULL || head->next == NULL) {puts("null point or no data");return NULL;}
+	node *p, *q;
+	p = head->next;
+	for(int i = 0; i< m-1; i++)
+	{
+		if(p->next != NULL)
+			p = p->next;
+		else
+		{
+			printf("no exit last m-th node!\n");
+			return NULL;
+		}
+	}
+
+	q = head->next;
+	while(p->next != NULL)
+	{
+		p = p->next;
+		q = q->next;
+	}
+
+	return q;
+}
+
 int main()
 {
-	node *head;
+	node *head, *q;
 
 	head = createNode();
+
+	sort(head);
 	print(head);
+	
 	remove(head, 3);
 	print(head);
+
 	insert(head, 3);
 	print(head);
+
+	q = searchLastElement(head, 2);
+	printf("%d\n", q->id);
 
 	system("pause");
 	return 0;
