@@ -29,7 +29,7 @@
 
 ### Train
 
-> 运行环境为Caffe根目录，执行create_cifar10.sh 实际上是调用./build/examples/cifar10/convert_cifar_data.bin，生成cifar10_train_lmdb和cifar10_test_lmdb数据文件
+> 运行环境为Caffe根目录，执行sole.py, 开始训练网络，迭代10000次，没迭代100次统计测试的acc和训练的loss，最后显示acc-loss曲线。
 
 ### Results
 
