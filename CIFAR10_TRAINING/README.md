@@ -7,25 +7,25 @@
 > conv1->relu->pool1->lrn->conv2->relu->pool2->lrn->fc1->fc2
 
 ### 部分超参数介绍
-net: "mynet.prototxt"
+> net: "mynet.prototxt"
 
-test_iter: 100  #迭代100次可以覆盖全部10000个测试集
+> test_iter: 100  #迭代100次可以覆盖全部10000个测试集
 
-test_interval: 100  #每迭代100次测试一次
+> test_interval: 100  #每迭代100次测试一次
 
-base_lr: 0.001  #学习率
+> base_lr: 0.001  #学习率
 
-momentum: 0.99
+> momentum: 0.99
 
-weight_decay: 0.0004
+> weight_decay: 0.0004
 
-lr_policy: "fixed"
+> lr_policy: "fixed"
 
-snapshot: 5000
+> snapshot: 5000
 
-snapshot_prefix: "snapshot/log10k"
+> snapshot_prefix: "snapshot/log10k"
 
-solver_mode: GPU
+> solver_mode: GPU
 
 ### Train
 
@@ -35,7 +35,7 @@ solver_mode: GPU
 
 * 1: 学习率0.01
 
-![cifar_0.001.png](https://github.com/AllenMao/Demo/blob/master/CIFAR10_TRAINING/results/cifar_0.001.png?raw=true)
+![cifar_0.001.png](https://github.com/AllenMao/Demo/blob/master/CIFAR10_TRAINING/results/cifar_0.001.png?raw=true =100x)
 
 * 2: 学习率0.001
 
