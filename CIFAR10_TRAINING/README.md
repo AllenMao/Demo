@@ -1,13 +1,51 @@
-### Learning Shell
+### Create lmdb
 
-* 1: [HelloShell](https://github.com/AllenMao/Demo/tree/master/learningShell)
+> 运行环境为Caffe根目录，执行create_cifar10.sh 实际上是调用./build/examples/cifar10/convert_cifar_data.bin，生成cifar10_train_lmdb和cifar10_test_lmdb数据文件
 
-* 2: [CaffeBaseShell](https://github.com/AllenMao/Demo/tree/master/CaffeBaseShell)
+### Network architecture
 
-### Learning Python
+> conv1->relu->pool1->lrn->conv2->relu->pool2->lrn->fc1->fc2
 
-* 1: [Crawler_douban_movie](https://github.com/AllenMao/Demo/tree/master/douban_movie_top250)
+### 部分超参数介绍
+net: "mynet.prototxt"
 
-### Small code for acm
+test_iter: 100  #迭代100次可以覆盖全部10000个测试集
 
-* 1: [acm](https://github.com/AllenMao/Demo/tree/master/acm)
+test_interval: 100  #每迭代100次测试一次
+
+base_lr: 0.001  #学习率
+
+momentum: 0.99
+
+weight_decay: 0.0004
+
+lr_policy: "fixed"
+
+snapshot: 5000
+
+snapshot_prefix: "snapshot/log10k"
+
+solver_mode: GPU
+
+### Train
+
+> 运行环境为Caffe根目录，执行create_cifar10.sh 实际上是调用./build/examples/cifar10/convert_cifar_data.bin，生成cifar10_train_lmdb和cifar10_test_lmdb数据文件
+
+### Results
+
+* 1: 学习率0.01
+
+![cifar_0.001.png](https://github.com/AllenMao/Demo/blob/master/CIFAR10_TRAINING/results/cifar_0.001.png?raw=true)
+
+* 2: 学习率0.001
+
+![cifar_0.0001.png](https://github.com/AllenMao/Demo/blob/master/CIFAR10_TRAINING/results/cifar_0.0001.png?raw=true)
+
+* 3: 在1的全连接层之间添加Dropout
+
+![cifar_0.001_dropout.png](https://github.com/AllenMao/Demo/blob/master/CIFAR10_TRAINING/results/cifar_0.001_dropout.png?raw=true)
+
+* 4: 在3的基础上添加一层conv3
+
+![cifar_0.001_conv3.png](https://github.com/AllenMao/Demo/blob/master/CIFAR10_TRAINING/results/cifar_0.001_conv3.png?raw=true)
+
