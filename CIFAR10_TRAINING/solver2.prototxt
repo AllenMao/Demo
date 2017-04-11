@@ -1,0 +1,12 @@
+net: "mynet.prototxt"#"train_test.prototxt"#
+
+test_iter: 100#must need
+test_interval: 100
+base_lr: 0.001
+momentum: 0.99
+weight_decay: 0.0004
+lr_policy: "fixed"
+
+snapshot: 5000
+snapshot_prefix: "snapshot/log10k"
+solver_mode: GPU
