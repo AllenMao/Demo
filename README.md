@@ -4,7 +4,6 @@
 
 * 2: [CaffeBaseShell](https://github.com/AllenMao/Demo/tree/master/CaffeBaseShell)
 
-* 3: [CIFAR10_TRAINING](https://github.com/AllenMao/Demo/tree/master/CIFAR10_TRAINING)
 
 ### Learning Python
 
@@ -13,3 +12,7 @@
 ### Small code for acm
 
 * 1: [acm](https://github.com/AllenMao/Demo/tree/master/acm)
+
+### Deep Learning on Caffe
+
+* 1: [CIFAR10_TRAINING](https://github.com/AllenMao/Demo/tree/master/CIFAR10_TRAINING)
