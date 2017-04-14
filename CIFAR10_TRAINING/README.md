@@ -35,7 +35,7 @@
 
 * 1: 学习率0.01
 
-![cifar_0.001.png](https://github.com/AllenMao/Demo/blob/master/CIFAR10_TRAINING/results/cifar_0.001.png?raw=true =50x50)
+![cifar_0.001.png](https://github.com/AllenMao/Demo/blob/master/CIFAR10_TRAINING/results/cifar_0.001.png =50x50)
 
 * 2: 学习率0.001
 
