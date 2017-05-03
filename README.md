@@ -9,7 +9,7 @@
 
 * 1: [Crawler_douban_movie](https://github.com/AllenMao/Demo/tree/master/douban_movie_top250)
 
-### algorithm
+### Algorithm
 
 * 1: [algorithm](https://github.com/AllenMao/Demo/tree/master/acm)
 
