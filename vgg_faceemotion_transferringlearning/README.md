@@ -8,7 +8,9 @@
 
 ### 2 迁移学习
 > 迁移学习：获取预先训练好的神经网络模型的部分移植到一个相似的任务上。一方面节省了训练的时间；另一方面我们可以在少量数据集上进行微调。
+
 > 实现：net_surgery.py:实现将已训练好的模型部分权值，复制到当前任务的模型上，并生成对应的caffemodel文件。
+
 > 实验方案：
 ![scheme.jpg](https://github.com/AllenMao/Demo/blob/master/vgg_faceemotion_transferringlearning/results/scheme.jpg?raw=true)
 
