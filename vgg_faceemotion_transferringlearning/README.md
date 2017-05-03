@@ -16,11 +16,11 @@
 ![scheme.jpg](https://github.com/AllenMao/Demo/blob/master/vgg_faceemotion_transferlearning/results/scheme.jpg?raw=true)
 
 
-### 4 训练细节
+### 3 训练细节
 
 > 学习率固定为： 0.00001；迭代：1w次；最后只需要执行solve.py
 
-### 5 Results
+### 4 Results
 
 * 1: 训练所有层
 
