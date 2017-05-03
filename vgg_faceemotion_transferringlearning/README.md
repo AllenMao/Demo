@@ -13,7 +13,7 @@
 
 > 实验方案：
 
-![scheme.jpg](https://github.com/AllenMao/Demo/blob/master/vgg_faceemotion_transferringlearning/results/scheme.jpg?raw=true)
+![scheme.jpg](https://github.com/AllenMao/Demo/blob/master/vgg_faceemotion_transferlearning/results/scheme.jpg?raw=true)
 
 
 ### 4 训练细节
@@ -24,12 +24,12 @@
 
 * 1: 训练所有层
 
-![201705031514.png](https://github.com/AllenMao/Demo/blob/master/vgg_faceemotion_transferringlearning/results/201705031514.png?raw=true)
+![201705031514.png](https://github.com/AllenMao/Demo/blob/master/vgg_faceemotion_transferlearning/results/201705031514.png?raw=true)
 
 * 2: 只训练全连接层
 
-![201705031729.png](https://github.com/AllenMao/Demo/blob/master/vgg_faceemotion_transferringlearning/results/201705031729.png?raw=true)
+![201705031729.png](https://github.com/AllenMao/Demo/blob/master/vgg_faceemotion_transferlearning/results/201705031729.png?raw=true)
 
 * 3: freeze conv1-4
 
-![201705031941.png](https://github.com/AllenMao/Demo/blob/master/vgg_faceemotion_transferringlearning/results/201705031941.png?raw=true)
+![201705031941.png](https://github.com/AllenMao/Demo/blob/master/vgg_faceemotion_transferlearning/results/201705031941.png?raw=true)
