@@ -16,3 +16,5 @@
 ### Deep Learning on Caffe
 
 * 1: [CIFAR10_TRAINING](https://github.com/AllenMao/Demo/tree/master/CIFAR10_TRAINING)
+
+* 2: [vgg_faceemotion_transferringlearning](https://github.com/AllenMao/Demo/tree/master/vgg_faceemotion_transferringlearning)
