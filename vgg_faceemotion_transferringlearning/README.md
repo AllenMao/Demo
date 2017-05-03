@@ -1,5 +1,5 @@
 ### 前言
-> 本实验将分享如何采用迁移学习的方法，完成人脸表情识别。
+> 本实验将分享如何采用迁移学习的方法，在少量的数据上，完成人脸表情识别。所述的人脸表情识别，实际上是人脸表情分类问题。
 
 ### 1 准备数据
 > [dataset download](https://drive.google.com/open?id=0B3ANX1iL124qbmxOc2cyQzhvUFE)
@@ -13,6 +13,7 @@
 
 > 实验方案：
 
+> 实验中采用了三种方案，从左到右依次是：训练所有层、只训练全连接层、只训练全连接层和最后一个卷积组。
 ![scheme.jpg](https://github.com/AllenMao/Demo/blob/master/vgg_faceemotion_transferringlearning/results/scheme.jpg?raw=true)
 
 
