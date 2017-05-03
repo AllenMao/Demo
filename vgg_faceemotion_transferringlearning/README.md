@@ -1,42 +1,31 @@
 ### 前言
-> 本实验首先训练好自定义的网络“mynet”模型（step 1 to step 5），然后了解网络中间层的参数和输出信息（step 6）。
-### 1 Create lmdb
+> 本实验将分享如何采用迁移学习的方法，完成人脸表情识别。
 
-> 运行环境为Caffe根目录，执行create_cifar10.sh 实际上是调用./build/examples/cifar10/convert_cifar_data.bin，生成cifar10_train_lmdb和cifar10_test_lmdb数据文件
+### 1 准备数据
+> [dataset download](https://drive.google.com/open?id=0B3ANX1iL124qbmxOc2cyQzhvUFE)
+> 执行data目录下：create_lmdb.sh
 
-### 2 Network architecture
+### 2 迁移学习
+> 迁移学习：获取预先训练好的神经网络模型的部分移植到一个相似的任务上。一方面节省了训练的时间；另一方面我们可以在少量数据集上进行微调。
+> 实现：net_surgery.py:实现将已训练好的模型部分权值，复制到当前任务的模型上，并生成对应的caffemodel文件。
+> 实验方案：
+![scheme.jpg](https://github.com/AllenMao/Demo/blob/master/vgg_faceemotion_transferringlearning/results/scheme.jpg?raw=true)
 
-> conv1->relu->pool1->lrn->conv2->relu->pool2->lrn->fc1->fc2
 
-### 3 部分超参数介绍
-> net: "mynet.prototxt"
+### 4 训练细节
 
-test_iter: 100  #迭代100次可以覆盖全部10000个测试集
-
-test_interval: 100  #每迭代100次测试一次
-
-base_lr: 0.001  #学习率
-
-momentum: 0.99
-
-weight_decay: 0.0004
-
-lr_policy: "fixed"
-
-snapshot: 5000
-
-snapshot_prefix: "snapshot/log10k"
-
-solver_mode: GPU
-
-### 4 Train
-
-> 运行环境为Caffe根目录，执行sole.py, 开始训练网络，迭代10000次，没迭代100次统计测试的acc和训练的loss，最后显示acc-loss曲线。
+> 学习率固定为： 0.00001；迭代：1w次；最后只需要执行solve.py
 
 ### 5 Results
 
-* 1: 学习率0.01
+* 1: 训练所有层
 
-![cifar_0.001.png](https://github.com/AllenMao/Demo/blob/master/CIFAR10_TRAINING/results/cifar_0.001.png?raw=true)
+![201705031514.png](https://github.com/AllenMao/Demo/blob/master/vgg_faceemotion_transferringlearning/results/201705031514.png?raw=true)
 
-* 2: 学习率0.001
+* 2: 只训练全连接层
+
+![201705031729.png](https://github.com/AllenMao/Demo/blob/master/vgg_faceemotion_transferringlearning/results/201705031729.png?raw=true)
+
+* 3: freeze conv1-4
+
+![201705031941.png](https://github.com/AllenMao/Demo/blob/master/vgg_faceemotion_transferringlearning/results/201705031941.png?raw=true)
