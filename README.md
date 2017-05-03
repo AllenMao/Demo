@@ -9,9 +9,9 @@
 
 * 1: [Crawler_douban_movie](https://github.com/AllenMao/Demo/tree/master/douban_movie_top250)
 
-### Small code for acm
+### algorithm
 
-* 1: [acm](https://github.com/AllenMao/Demo/tree/master/acm)
+* 1: [algorithm](https://github.com/AllenMao/Demo/tree/master/acm)
 
 ### Deep Learning on Caffe
 
