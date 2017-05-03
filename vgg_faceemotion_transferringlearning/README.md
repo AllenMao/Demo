@@ -12,6 +12,7 @@
 > 实现：net_surgery.py:实现将已训练好的模型部分权值，复制到当前任务的模型上，并生成对应的caffemodel文件。
 
 > 实验方案：
+
 ![scheme.jpg](https://github.com/AllenMao/Demo/blob/master/vgg_faceemotion_transferringlearning/results/scheme.jpg?raw=true)
 
 
