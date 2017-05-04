@@ -2,7 +2,7 @@
 > 本实验将分享如何采用迁移学习的方法，在少量的数据上，完成人脸表情识别。所述的人脸表情识别，实际上是人脸表情分类问题。
 
 ### 1 准备数据
-> [dataset download](https://drive.google.com/open?id=0B3ANX1iL124qbmxOc2cyQzhvUFE)
+> [dataset download](https://drive.google.com/open?id=0B3ANX1iL124qbmxOc2cyQzhvUFE)：包含7种表情，其中10333张图像用作训练集，4424张图像用作测试集。
 
 > 执行data目录下：create_lmdb.sh
 
