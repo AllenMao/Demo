@@ -41,3 +41,6 @@
 
 ### 参考
 [1] Simonyan K, Zisserman A. Very Deep Convolutional Networks for Large-Scale Image Recognition. 2014.
+
+[2] http://cs231n.github.io/
+
