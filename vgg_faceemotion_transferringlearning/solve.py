@@ -24,7 +24,7 @@ solver.net.copy_from(weights)
 
 max_iter = 10000
 test_iter = 139	#test_size / batch_size
-test_interval = 100	#test times
+test_interval = 100	#test frequency
 display = 50
 test_acc = np.zeros(int(np.ceil(max_iter * 1.0 / test_interval)))
 train_loss = np.zeros(int(np.ceil(max_iter * 1.0 / display)))
