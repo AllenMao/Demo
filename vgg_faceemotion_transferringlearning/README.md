@@ -4,6 +4,9 @@
 ### 1 准备数据
 * [dataset download](https://drive.google.com/open?id=0B3ANX1iL124qbmxOc2cyQzhvUFE)：包含7种表情，其中10333张图像用作训练集，4424张图像用作测试集。
 
+* [caffemodel download](http://www.robots.ox.ac.uk/~vgg/software/very_deep/caffe/VGG_ILSVRC_16_layers.caffemodel
+)：获取其部分权重用于本实验。
+
 * 执行data目录下：create_lmdb.sh
 
 ### 2 迁移学习
