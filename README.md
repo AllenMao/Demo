@@ -2,7 +2,7 @@
 
 * 1: [HelloShell](https://github.com/AllenMao/Demo/tree/master/learningShell)
 
-* 2: [CaffeBaseShell](https://github.com/AllenMao/Demo/tree/master/CaffeBaseShell)
+* 2: [Makefile](https://github.com/AllenMao/Demo/tree/master/CaffeBaseShell)
 
 
 ### Learning Python
@@ -15,6 +15,8 @@
 
 ### Deep Learning on Caffe
 
-* 1: [CIFAR10_TRAINING](https://github.com/AllenMao/Demo/tree/master/CIFAR10_TRAINING)
+* 1: [CaffeBaseShell](https://github.com/AllenMao/Demo/tree/master/CaffeBaseShell)
 
-* 2: [vgg_faceemotion_transferlearning](https://github.com/AllenMao/Demo/tree/master/vgg_faceemotion_transferringlearning)
+* 2: [CIFAR10_TRAINING](https://github.com/AllenMao/Demo/tree/master/CIFAR10_TRAINING)
+
+* 3: [vgg_faceemotion_transferlearning](https://github.com/AllenMao/Demo/tree/master/vgg_faceemotion_transferringlearning)
