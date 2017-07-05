@@ -20,3 +20,6 @@
 * 2: [CIFAR10_TRAINING](https://github.com/AllenMao/Demo/tree/master/CIFAR10_TRAINING)
 
 * 3: [vgg_faceemotion_transferlearning](https://github.com/AllenMao/Demo/tree/master/vgg_faceemotion_transferringlearning)
+
+### My fork
+* 1: [(TensorFlow)糖尿病视网膜病变筛查](https://github.com/Nomikxyz/diabetic-retinopathy-screening)
