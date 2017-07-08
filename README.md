@@ -26,3 +26,5 @@
 * 1: [(TensorFlow)糖尿病视网膜病变筛查](https://github.com/Nomikxyz/diabetic-retinopathy-screening)
 
 * 2: [(TensorFlow)用猫咪图片训练的对抗生成网络](https://github.com/AlexiaJM/Deep-learning-with-cats)
+
+* 3:[(Caffe)高效视觉目标检测](https://github.com/taokong/RON)
