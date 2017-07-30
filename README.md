@@ -19,7 +19,7 @@
 
 * 2: [CIFAR10_TRAINING](https://github.com/AllenMao/Demo/tree/master/CIFAR10_TRAINING)
 
-* 3: [vgg_faceemotion_transferlearning](https://github.com/AllenMao/Demo/tree/master/vgg_faceemotion_transferringlearning)
+* 3: [vgg_faceemotion_transferlearning](https://github.com/AllenMao/Demo/tree/master/vgg_faceemotion_transferlearning)
 
 ### My fork
 
