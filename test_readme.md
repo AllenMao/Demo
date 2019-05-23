@@ -27,6 +27,7 @@
 
 * 模型转换执行: Usage: ezm-gen <ENGINE> <MODEL_CONF_JSON> <OUTPUT_FILE> [ENGINE_CONF_JSON]
     (1) 转FP32: ezm-gen TRTEngine model/oil_dress.json model/oil_dress_FP32_4.ezm model/engine_trt_fp32_bs4.json
+    
     (2) 转INT8:  ezm-gen TRTEngine model/oil_dress.json model/oil_dress_INT8_4.ezm model/engine_trt_int8_bs4.json
 
 * 测试用例和测试结果
