@@ -11,15 +11,17 @@
 * caffemodel: model/oil_dress.caffemodel
 * prototxt: model/oil_dress.prototxt
 
-
-
 # 3 前后处理逻辑
 * classify_model_infer.py:
-    (1) convert_image(image): 
+    (1) convert_image(image)
+        Parameters:
+        - image: cvimg
 
 
 # 4 模型转换
-## 校准集：data/trt_data, 对应生成量化pb数据路径为：data/trt_data_pb
+## 校准集:
+*    原图像: data/trt_data
+*    量化所需pb数据：data/trt_data_pb
 ## 配置文件:
 *    模型配置文件: oil_dress.json
 *    引擎配置文件: engine_trt_int8_bs4.json
