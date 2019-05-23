@@ -59,6 +59,7 @@
 
 # 5 模型转换一致性
 *    一致性验证结果: 原始模型和转换后的模型的曲线（验证模型是否转换成功）[pdf](https://gitlab.deepglint.com)
+         python classify_model_infer.py 'oil_dress' 'model/oil_dress_INT8_4.ezm' 'prob3' 'dev'
 
 # 6 阈值设置参考
 *    提供曲线对应的点的信息列表（p，r，threshold）[txt](https://gitlab.deepglint.com)
