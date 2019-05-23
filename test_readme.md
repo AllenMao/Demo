@@ -46,7 +46,7 @@
 
 *    转INT8:
 
-         (1) 准备好训练集（随机挑选num_cls * 1k即可)，生成pb文件，执行python classify_model_infer.py 'oil_dress' 'model/oil_dress_FP32_4.ezm' 'prob3' 'save_pb'，保存在data下生成trt_data_pb
+         (1) 准备好训练集（随机挑选num_cls * 1k即可)，生成pb文件，执行python classify_model_infer.py oil_dress model/oil_dress_FP32_4.ezm prob3 save_pb，保存在data下生成trt_data_pb
          
          (2) 配置好模型配置文件 (model/oil_dress.json) 和引擎配置文件 (model/engine_trt_int8_bs4.json)
          
@@ -60,7 +60,7 @@
 # 5 模型转换一致性
 *    一致性验证结果: 原始模型和转换后的模型的曲线（验证模型是否转换成功）[pdf](https://gitlab.deepglint.com)
 
-         python classify_model_infer.py 'oil_dress' 'model/oil_dress_INT8_4.ezm' 'prob3' 'dev'
+         python classify_model_infer.py oil_dress model/oil_dress_INT8_4.ezm prob3 dev
 
 # 6 阈值设置参考
 *    提供曲线对应的点的信息列表（p，r，threshold）[txt](https://gitlab.deepglint.com)
