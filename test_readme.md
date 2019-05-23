@@ -15,7 +15,7 @@
 * classify_model_infer.py:
     
     (1) Usage: python classify_model_infer.py <MODEL_NAME> <EZM_MODEL> <OUTPUT_NAME> <MODE>
-        
+     
         Parameters: 
             - MODEL_NAME: "model_name" defined in MODEL_CONF_JSON
             - EZM_MODEL:  generated MODEL (e.g. FP32.ezm, INT8.ezm)
