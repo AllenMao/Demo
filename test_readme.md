@@ -13,8 +13,11 @@
 
 # 3 前后处理逻辑
 * classify_model_infer.py:
+    
     (1) Usage: python classify_model_infer.py <MODEL_NAME> <EZM_MODEL> <OUTPUT_NAME> <MODE>
-        Parameters: * MODEL_NAME: "model_name" defined in MODEL_CONF_JSON
+        
+        ** Parameters: 
+        * MODEL_NAME: "model_name" defined in MODEL_CONF_JSON
          
     
     (1) convert_image(image): 图像预处理函数，包括 resize，减均值
