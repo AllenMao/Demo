@@ -1,66 +1,313 @@
-# 1 模型功能介绍和技术说明文档
-## 功能介绍：
-*    应用场景：中石化中石油，
-*    需求来源：
-*    数据来源和数量：实际场景采集2w+，行人库筛选2w负样本，训练共37650，测试共5640
+GENERAL:
+  CUDA_VISIBLE_DEVICES:  '0,1'
 
-## 技术说明:
-*    网络结构（GoogleNet+BN），数据增强（random crop + flip）
 
-# 2 模型稳定性
-* caffemodel: model/oil_dress.caffemodel
-* prototxt: model/oil_dress.prototxt
+DATASET:
+  NAME: 'FACE'
+  SUB_DIR: ''
+  TRAIN_SETS: (('sndgface', 'sndgcartrain'), )
+  # TEST_SETS:  (('sndgface', 'dgtesthaveann'), )
+  TEST_SETS:  (('sndgface', 'sntest'), )
+  NUM_CLASSES: 1
+  IMAGE_SIZE: (360, 640)
+  TRAIN_BATCH_SIZE: 128
+  NUM_WORKERS: 32
 
-# 3 前后处理逻辑
-* classify_model_infer.py:
+TRAIN:
+  MAX_ITER: 20000
+# evaluate every eval_iter
+  EVAL_ITER: 1000
+# save models every
+  SAVE_ITER: 1000
+# log loss every
+  LOG_LOSS_ITER: 100
+  WARMUP_EPOCH: 2
+  LR_SCHEDULER:
+    STEPS: (7000, 14000, 18000) 
+  OPTIMIZER:
+    LR: 0.1
+
+MODEL:
+  SSD_TYPE: 'SSD_SN'
+  BASE: 'res10_t'
+  PRETRAIN_MODEL: ' '
+  STEPS: [4, 8, 16]
+  MIN_SIZES: [[10, 14], [21.2,32,48],[70,105]]
+  MAX_SIZES: []
+  FLIP: False
+  ASPECT_RATIOS: [[], [], []]
+  SSD:
+    EXTRA_CONFIG: ('p2_96', 'p2_96', 'p2_96', 'p3_96', 'p3_96', 'p3_96')
+
+import torch
+import torch.nn as nn
+
+def conv3x3(in_channels, out_channels, stride=1):
+    return nn.Conv2d(in_channels, out_channels, kernel_size=3,
+                     stride=stride, padding=1, bias=False)
+def conv1x1(in_channels, out_channels, stride=1):
+    return nn.Conv2d(in_channels, out_channels, kernel_size=1,
+                     stride=stride, padding=0, bias=False)
+
+
+class ResidualBlock_small(nn.Module):
+    def __init__(self, in_channels, out_channels, stride=1,conv_2=False):
+        super(ResidualBlock_small, self).__init__()
+        self.conv1 = conv3x3(in_channels, out_channels, stride=stride)
+        self.bn1 = nn.BatchNorm2d(out_channels)
+        self.relu = nn.ReLU(inplace=True)
+        self.conv2 = conv3x3(out_channels, out_channels)
+        self.bn2 = nn.BatchNorm2d(out_channels)
+        self.conv_2 = conv_2
+        if conv_2 == True:
+            self.conv1_1 = conv1x1(in_channels, out_channels, stride=stride)
+            self.bn1_2 = nn.BatchNorm2d(out_channels)
+
+
+    def forward(self, x):
+        residual = x
+        out = self.conv1(x)
+        out = self.bn1(out)
+        out = self.relu(out)
+        out = self.conv2(out)
+        out = self.bn2(out)
+        if self.conv_2:
+            residual = self.conv1_1(x)
+            residual = self.bn1_2(residual)
+        out += residual
+        out = self.relu(out)
+        return out
+
+
+# def res10():
+
+#     layers = []
+#     in_channels = 3
+#     all_channels = 12
+#     conv2d = nn.Conv2d(in_channels, all_channels, kernel_size=3, stride=2, padding=1)
+#     layers += [conv2d, nn.BatchNorm2d(all_channels), nn.ReLU(inplace=True)]
+#     layers += [nn.MaxPool2d(kernel_size=3, stride=2, padding=0,ceil_mode=True)]
+#     layers += [ResidualBlock_small(all_channels,all_channels,1,True)]
+#     layers += [ResidualBlock_small(all_channels,all_channels,2,True)]
+#     layers += [ResidualBlock_small(all_channels,all_channels,2,True)]
+#     return layers
+def res10():
+
+    layers = []
+    in_channels = 3
+    all_channels = 12
+    conv2d = nn.Conv2d(in_channels, 19, kernel_size=3, stride=2, padding=1)
+    layers += [conv2d, nn.BatchNorm2d(19), nn.ReLU(inplace=True)]
+    layers += [nn.MaxPool2d(kernel_size=3, stride=2, padding=0,ceil_mode=True)]
+    layers += [ResidualBlock_small(19,32,1,True)]
+    layers += [ResidualBlock_small(32,64,2,True)]
+    layers += [ResidualBlock_small(64,96,2,True)]
+    return layers
+
+# def res10_t():
+
+#     layers = []
+#     in_channels = 3
+#     conv2d = nn.Conv2d(in_channels, 16, kernel_size=3, stride=2, padding=1)
+#     layers += [conv2d, nn.BatchNorm2d(16), nn.ReLU(inplace=True)]
+#     layers += [nn.MaxPool2d(kernel_size=3, stride=2, padding=0,ceil_mode=True)]
+#     layers += [ResidualBlock_small(16,32,1,True)]
+#     layers += [ResidualBlock_small(32,64,2,True)]
+#     layers += [ResidualBlock_small(64,96,2,True)]
+#     return layers
+
+
+def res10_t():
+
+    layers = []
+    in_channels = 3
+    conv2d = nn.Conv2d(in_channels, 19, kernel_size=3, stride=2, padding=1)
+    layers += [conv2d, nn.BatchNorm2d(19), nn.ReLU(inplace=True)]
+    layers += [nn.MaxPool2d(kernel_size=3, stride=2, padding=0,ceil_mode=True)]
+    layers += [ResidualBlock_small(19,32,1,True)]
+    layers += [ResidualBlock_small(32,64,2,True)]
+    layers += [ResidualBlock_small(64,96,2,True)]
+    return layers
     
-    (1) Usage: python classify_model_infer.py <MODEL_NAME> <EZM_MODEL> <OUTPUT_NAME> <MODE>
-     
-        Parameters: 
-            - MODEL_NAME: "model_name" defined in MODEL_CONF_JSON
-            - EZM_MODEL:  generated MODEL (e.g. FP32.ezm, INT8.ezm)
-            - OUTPUT_NAME: output layer name of model
-            - MODE: 'dev' for evaluation; 'test' only get label; 'save_pb' for converting images to pb file
-    
-    (2) 必要函数介绍：
-    
-        convert_image(image): 图像预处理函数，包括 resize，减均值
-    
     
 
-# 4 模型转换
-## 校准集:
-*    部分训练集: data/trt_data
-*    量化所需pb数据：data/trt_data_pb
-## 配置文件:
-*    模型配置文件: model/oil_dress.json
-*    引擎配置文件: model/engine_trt_int8_bs4.json
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+from lib.layers import *
 
-## 模型转换执行: 
-     Usage: ezm-gen <ENGINE> <MODEL_CONF_JSON> <OUTPUT_FILE> [ENGINE_CONF_JSON]
-*    转FP32:
 
-         (1) 配置好模型配置文件 (model/oil_dress.json) 和引擎配置文件 (model/engine_trt_fp32_bs4.json)
-         
-         (2) 执行shell: ezm-gen TRTEngine model/oil_dress.json model/oil_dress_FP32_4.ezm model/engine_trt_fp32_bs4.json
+class SSD_SN(nn.Module):
+    """Single Shot Multibox Architecture
+    The network is composed of a base VGG network followed by the
+    added multibox conv layers.  Each multibox layer branches into
+        1) conv2d for class conf scores
+        2) conv2d for localization predictions
+        3) associated priorbox layer to produce default bounding
+           boxes specific to the layer's feature map size.
+    See: https://arxiv.org/pdf/1512.02325.pdf for more details.
 
-*    转INT8:
+    Args:
+        phase: (string) Can be "test" or "train"
+        size: input image size
+        base: VGG16 layers for input, size of either 300 or 500
+        extras: extra layers that feed to multibox loc and conf layers
+        head: "multibox head" consists of loc and conf conv layers
+    """
 
-         (1) 准备好训练集（随机挑选num_cls * 1k即可)，生成pb文件，执行python classify_model_infer.py oil_dress model/oil_dress_FP32_4.ezm prob3 save_pb，保存在data下生成trt_data_pb
-         
-         (2) 配置好模型配置文件 (model/oil_dress.json) 和引擎配置文件 (model/engine_trt_int8_bs4.json)
-         
-         (3) 执行shell: ezm-gen TRTEngine model/oil_dress.json model/oil_dress_INT8_4.ezm model/engine_trt_int8_bs4.json
+    def __init__(self, phase, cfg, base):
+        super(SSD_SN, self).__init__()
+        if phase != "train" and phase != "eval" and phase != "mimic" and phase != "caffe":
+            raise Exception("ERROR: Input phase: {} not recognized".format(phase))
+        self.phase = phase
+        self.num_classes = cfg.MODEL.NUM_CLASSES
+        self.cfg = cfg
+        self.priors = None
+        self.image_size = cfg.MODEL.IMAGE_SIZE
 
-## 测试用例和测试结果
-*    test_samples: data/test_samples，提供少许图像
-*    test_samples_resules: data/test_samples_resules，测试样例int8 trt输出结果。用于集成组转换后的模型输出diff算法组提供的结果。
-*    测试性能的测试报告: 提供GPU单卡batch_size=8的显存和耗时，仅供参考；例如（GTX1080ti. batch-size=8情况下的显存和耗时）
+        # SSD network
+        self.base = nn.ModuleList(base)
+        # Layer learns to scale the l2 normalized features from conv4_3
+        #self.L2Norm = L2Norm(512, 20)  # TODO automate this
+        
+        if(cfg.MODEL.SSD.EXTRA_CONFIG_T[0]!=' '):
+            extras = add_extras(cfg.MODEL.SSD.EXTRA_CONFIG_T, base)
 
-# 5 模型转换一致性
-*    一致性验证结果: 原始模型和转换后的模型的曲线（验证模型是否转换成功）[pdf](https://gitlab.deepglint.com)
+            head = multibox(base,cfg.MODEL.SSD.EXTRA_CONFIG_T, cfg.MODEL.NUM_PRIOR, cfg.MODEL.NUM_CLASSES)
+        else:
+            extras = add_extras(cfg.MODEL.SSD.EXTRA_CONFIG, base)
 
-         python classify_model_infer.py oil_dress model/oil_dress_INT8_4.ezm prob3 dev
+            head = multibox(base,cfg.MODEL.SSD.EXTRA_CONFIG, cfg.MODEL.NUM_PRIOR, cfg.MODEL.NUM_CLASSES)
+        self.extras = nn.ModuleList(extras)
+        self.loc = nn.ModuleList(head[0])
+        self.conf = nn.ModuleList(head[1])
 
-# 6 阈值设置参考
-*    提供曲线对应的点的信息列表（p，r，threshold）[txt](https://gitlab.deepglint.com)
+        self.softmax = nn.Softmax(dim=-1)
+        # self.matching = None
+        self.criterion = None
+        # if self.phase == 'eval':  # TODO add to config
+        #     self.detect = Detect(self.num_classes, 0, 200, 0.01, 0.45)
+
+    def forward(self, x, phase='train', match_result=None, tb_writer=None):
+        sources = list()
+        loc = list()
+        conf = list()
+
+        phase = phase
+
+        # dstf1 = open("/home/users/xupengfei/pytorch/ssd.pytorch/data.txt",'w')
+        # dstf1.write(x)
+        # print("x",x)
+        # apply vgg up to conv4_3 relu
+        for k in range(7):  # TODO make it configurable
+            x = self.base[k](x)
+            if k > 3:
+                sources.append(x)
+
+
+        # s = self.L2Norm(x)  # can replace batchnorm    nn.BatchNorm2d(x)#
+        #sources.append(s)
+
+        # apply vgg up to fc7
+        # for k in range(7, len(self.base)):
+        #     x = self.base[k](x)
+        # sources.append(x)
+
+        # apply extra layers and cache source layer outputs
+        # for k, v in enumerate(self.extras):
+        #     sources[k] = F.relu(v(sources[k]), inplace=True)
+        headnum = len(self.extras)/2 #TODO head config 
+
+        for k, v in enumerate(self.extras):
+            idx = int(k//headnum)
+            sources[idx] = v(sources[idx])
+        # apply multibox head to source layers
+        for (source, l, c) in zip(sources, self.loc, self.conf):
+            loc.append(l(source).permute(0, 2, 3, 1).contiguous())
+            conf.append(c(source).permute(0, 2, 3, 1).contiguous())
+
+        loc = torch.cat([o.view(o.size(0), -1) for o in loc], 1)
+        conf = torch.cat([o.view(o.size(0), -1) for o in conf], 1)
+        loc = loc.view(loc.size(0), -1, 4)
+        conf = conf.view(conf.size(0), -1, self.num_classes)
+        
+        if phase == 'eval':
+            output = loc, self.softmax(conf)
+        elif phase == 'train':
+
+            output = self.criterion((loc, conf), match_result, tb_writer) \
+                if self.criterion is not None else None
+            # output = loc, conf
+        elif phase == 'caffe':
+            output = (loc, conf)
+        else:
+            output = sources
+
+        return output
+
+
+def add_extras(cfg_extra, base, batch_norm=False):
+    # Extra layers added to VGG for feature scaling
+    layers = []
+    in_channels_p2 = 0
+    in_channels_p3 = 0
+    for idx, v in enumerate(cfg_extra):
+        if 'p2' in v:
+            blockidx = -3 
+            if in_channels_p2 == 0:
+                in_channels_p2 = base[blockidx].conv2.out_channels  # TODO make this configurable
+            layers += [nn.Conv2d(in_channels_p2, int(v[3:]),kernel_size=1, stride=1)]
+            layers += [nn.ReLU(inplace=True)]
+            in_channels_p2 = int(v[3:])
+        elif 'p3' in v:
+            blockidx = -2 
+            if in_channels_p3 == 0:
+                in_channels_p3 = base[blockidx].conv2.out_channels  # TODO make this configurable
+            layers += [nn.Conv2d(in_channels_p3, int(v[3:]),kernel_size=1, stride=1)]
+            layers += [nn.ReLU(inplace=True)]
+            in_channels_p3 = int(v[3:])
+    return layers
+
+
+def multibox(base, cfg,num_priors, num_classes):
+    loc_layers = []
+    conf_layers = []
+
+    for k, v in enumerate(cfg):  
+        if 'p2' in v:
+            in_channel_p2 = int(v[3:])
+        elif 'p3' in v:
+            in_channel_p3 = int(v[3:])
+    loc_layers += [nn.Conv2d(in_channel_p2, num_priors[0]
+                             * 4, kernel_size=3, padding=1)]
+    conf_layers += [nn.Conv2d(in_channel_p2, num_priors[0]
+                              * num_classes, kernel_size=3, padding=1)]
+    loc_layers += [nn.Conv2d(in_channel_p3, num_priors[1]
+                             * 4, kernel_size=3, padding=1)]
+    conf_layers += [nn.Conv2d(in_channel_p3, num_priors[1]
+                              * num_classes, kernel_size=3, padding=1)]
+    loc_layers += [nn.Conv2d(base[-1].conv2.out_channels, num_priors[-1]
+                             * 4, kernel_size=3, padding=1)]
+    conf_layers += [nn.Conv2d(base[-1].conv2.out_channels, num_priors[-1]
+                              * num_classes, kernel_size=3, padding=1)]
+    return loc_layers, conf_layers
+
+#
+# extras_config = {
+#     'ssd': [256, 'S', 512, 128, 'S', 256, 128, 256, 128, 256],
+# }
+
+
+if __name__ == '__main__':
+    from lib.utils.config import cfg
+    from lib.models import model_factory
+
+    net, priors, layer_dims = model_factory(phase='train', cfg=cfg)
+    print(net)
+    # print(priors)
+    # print(layer_dims)
+
+    # input_names = ['data']
+    # net = net.cuda()
+    # dummy_input = Variable(torch.randn(1, 3, 300, 300)).cuda()
+    # torch.onnx.export(net, dummy_input, "./cache/alexnet.onnx", export_params=False, verbose=True, )
